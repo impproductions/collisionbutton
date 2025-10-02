@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'bun:test';
 import { calculateVelocity, calculateCollision } from './physics';
-import { MousePosition } from '../hooks/useMouseTracking';
+import type { MousePosition } from '../hooks/useMouseTracking';
 
 describe('Physics calculations', () => {
   describe('calculateVelocity', () => {

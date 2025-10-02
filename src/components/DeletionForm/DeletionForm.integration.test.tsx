@@ -25,7 +25,7 @@ describe('DeletionForm component integration', () => {
 
     } catch (error) {
       importError = error;
-      console.log('❌ Import error:', error.message);
+      console.log('❌ Import error:', (error as Error).message);
     }
 
     expect(importError).toBeNull();
@@ -66,7 +66,7 @@ describe('DeletionForm component integration', () => {
 
     } catch (error) {
       cssError = error;
-      console.log('❌ CSS import error:', error.message);
+      console.log('❌ CSS import error:', (error as Error).message);
     }
 
     expect(cssError).toBeNull();

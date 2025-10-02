@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach, mock } from 'bun:test';
+import { describe, test, expect, beforeEach } from 'bun:test';
 
 describe('ConfirmButton velocity tracking', () => {
   let mouseHistory: Array<{ x: number; y: number; time: number }> = [];
