@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
+import { useMouseTracking } from '../../hooks/useMouseTracking';
+import { calculateCollision } from '../../utils/physics';
 import styles from './ConfirmButton.module.css';
 
 interface ConfirmButtonProps {
@@ -6,49 +8,33 @@ interface ConfirmButtonProps {
 }
 
 export const ConfirmButton: React.FC<ConfirmButtonProps> = ({ onClick }) => {
-  const [isPressed, setIsPressed] = useState(false);
-  const [ripples, setRipples] = useState<{ x: number; y: number; id: number }[]>([]);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const { getMouseHistory } = useMouseTracking();
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
     const button = e.currentTarget;
-    const rect = button.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const id = Date.now();
+    const mouseHistory = getMouseHistory();
+    const collision = calculateCollision(mouseHistory, e, button);
 
-    setRipples(prev => [...prev, { x, y, id }]);
-    setIsPressed(true);
-
-    setTimeout(() => {
-      setRipples(prev => prev.filter(r => r.id !== id));
-      setIsPressed(false);
-    }, 600);
-
-    setTimeout(() => {
-      onClick();
-    }, 300);
+    console.log(
+      `Button hit!\n` +
+      `Velocity: ${collision.velocity.speed.toFixed(0)} px/s\n` +
+      `Direction: ${collision.velocity.angle.toFixed(0)}°\n` +
+      `Hit position: (${collision.hitPoint.x.toFixed(0)}, ${collision.hitPoint.y.toFixed(0)})`
+    );
   };
 
   return (
     <div className={styles.buttonContainer}>
       <button
-        className={`${styles.confirmButton} ${isPressed ? styles.pressed : ''}`}
-        onClick={handleClick}
+        ref={buttonRef}
+        className={styles.confirmButton}
+        onMouseEnter={handleMouseEnter}
+        onClick={onClick}
         aria-label="Delete account permanently"
       >
         <span className={styles.buttonIcon}>⚠️</span>
         <span className={styles.buttonText}>Delete My Account Forever</span>
-
-        {ripples.map(ripple => (
-          <span
-            key={ripple.id}
-            className={styles.ripple}
-            style={{
-              left: ripple.x,
-              top: ripple.y,
-            }}
-          />
-        ))}
       </button>
 
       <p className={styles.finalText}>

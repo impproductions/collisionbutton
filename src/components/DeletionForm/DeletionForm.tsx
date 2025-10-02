@@ -14,32 +14,6 @@ export const DeletionForm: React.FC = () => {
       <div className={styles.disclaimerSection}>
         <h2 className={styles.sectionTitle}>Before you go...</h2>
 
-        <div className={styles.disclaimerCard}>
-          <h3 className={styles.cardTitle}>⚠️ What happens when you delete your account?</h3>
-          <ul className={styles.consequencesList}>
-            <li>
-              <span className={styles.bulletPoint}>•</span>
-              <span>Your profile, photos, posts, videos, and everything else you've added will be permanently deleted. You won't be able to retrieve anything you've added.</span>
-            </li>
-            <li>
-              <span className={styles.bulletPoint}>•</span>
-              <span>You'll no longer be able to use services that require this account.</span>
-            </li>
-            <li>
-              <span className={styles.bulletPoint}>•</span>
-              <span>Your username will be released and could be claimed by anyone.</span>
-            </li>
-            <li>
-              <span className={styles.bulletPoint}>•</span>
-              <span>All your achievements, progress, and history will vanish into the digital void.</span>
-            </li>
-            <li>
-              <span className={styles.bulletPoint}>•</span>
-              <span>Any active subscriptions or purchases will be forfeited without refund.</span>
-            </li>
-          </ul>
-        </div>
-
         <div className={styles.finalWarning}>
           <p className={styles.warningText}>
             <strong>This is your final warning.</strong> Once you click the button below,
